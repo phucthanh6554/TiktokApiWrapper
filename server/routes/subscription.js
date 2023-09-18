@@ -7,7 +7,7 @@ router.post('/create', async (req, res) => {
         app_id: process.env.APP_ID,
         secret: process.env.SECRET,
         subscribe_entity: 'LEAD',
-        callback_url: process.env.SUBSCRIPTION_CALLBACK_URL,
+        callback_url: getCallbackUrl(),
         subscription_detail: {
             access_token: req.body.access_token,
             advertiser_id: req.body.advertiser_id
@@ -25,5 +25,14 @@ router.post('/create', async (req, res) => {
 
     res.send({ message: 'Ok' })
 })
+
+function getCallbackUrl() {
+    let port = process.env.PORT ?? 4000
+
+    if(req.hostname !== 'localhost')
+        return `${req.protocol}://${req.hostname}/lead/create`
+    else
+        return `${req.protocol}://${req.hostname}:${port}/lead/create`
+}
 
 module.exports = router

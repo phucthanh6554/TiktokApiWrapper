@@ -8,12 +8,21 @@ const subscriptionRoute = require('./routes/subscription')
 
 require('dotenv').config()
 
+const PORT = process.env.PORT ?? 4000
+
 const app = express();
 
 app.use(cors())
+
 app.use(bodyParser.json())
+
+app.use((req, res, next) => {
+    let url = `${req.protocol}://${req.hostname}:4000/${req.originalUrl}`
+    req.full_url = url
+    next()
+})
 
 app.use('/identities', identityRoute)
 app.use('/subscriptions', subscriptionRoute)
 
-app.listen(4000, () => console.log('Server is litening on port 4000'))
+app.listen(PORT, () => console.log('Server is litening on port ' + PORT))

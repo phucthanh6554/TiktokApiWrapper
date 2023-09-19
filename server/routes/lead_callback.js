@@ -16,6 +16,8 @@ const db = getFirestore();
 router.post('/create', bodyParser.text({type: '*/*'}), async (req, res) => {
     let json = jsonBigint.parse(req.body)
 
+    console.log('JSON', json)
+
     const docRef = db.collection('lead').doc(json.entry[0].id.toString());
 
     await docRef.set({

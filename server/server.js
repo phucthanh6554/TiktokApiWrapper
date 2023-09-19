@@ -5,6 +5,7 @@ const axios = require('axios')
 
 const identityRoute = require('./routes/identity')
 const subscriptionRoute = require('./routes/subscription')
+const leadRoute = require('./routes/lead_callback')
 
 require('dotenv').config()
 
@@ -14,13 +15,9 @@ const app = express();
 
 app.use(cors())
 
-app.use(bodyParser.json())
+app.use('/lead', leadRoute)
 
-app.use((req, res, next) => {
-    let url = `${req.protocol}://${req.hostname}:4000/${req.originalUrl}`
-    req.full_url = url
-    next()
-})
+app.use(bodyParser.json())
 
 app.use('/identities', identityRoute)
 app.use('/subscriptions', subscriptionRoute)

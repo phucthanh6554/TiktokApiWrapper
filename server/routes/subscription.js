@@ -32,7 +32,7 @@ function getCallbackUrl(req) {
     let port = process.env.PORT ?? 4000
 
     if(req.hostname !== 'localhost')
-        return `${req.protocol}://${req.hostname}/lead/create`
+        return `https://${req.hostname}/lead/create`
     else
         return `${req.protocol}://${req.hostname}:${port}/lead/create`
 }

@@ -1,12 +1,26 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
-  </head>
-  <body>
-    <script type="module" src="/main.js"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vite App</title>
+</head>
+
+<body>
+  <button onclick="connectToTiktok()">Connect to Tiktok</button>
+</body>
+
 </html>
+
+<script>
+  function connectToTiktok() {
+    let appId = '7275599121690394625'
+    let redirectUrl = `${location.origin}/callback.html`
+
+    let url = `https://business-api.tiktok.com/portal/auth?app_id=${appId}&redirect_uri=${redirectUrl}`
+
+    window.location.href = url
+  }
+</script>

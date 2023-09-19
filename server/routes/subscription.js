@@ -7,12 +7,14 @@ router.post('/create', async (req, res) => {
         app_id: process.env.APP_ID,
         secret: process.env.SECRET,
         subscribe_entity: 'LEAD',
-        callback_url: getCallbackUrl(),
+        callback_url: getCallbackUrl(req),
         subscription_detail: {
             access_token: req.body.access_token,
             advertiser_id: req.body.advertiser_id
         }
     }
+
+    console.log(getCallbackUrl(req))
 
     let url = 'https://business-api.tiktok.com/open_api/v1.3/subscription/subscribe'
 
@@ -26,7 +28,7 @@ router.post('/create', async (req, res) => {
     res.send({ message: 'Ok' })
 })
 
-function getCallbackUrl() {
+function getCallbackUrl(req) {
     let port = process.env.PORT ?? 4000
 
     if(req.hostname !== 'localhost')
